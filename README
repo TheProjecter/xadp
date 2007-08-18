@@ -231,7 +231,7 @@ distribution.
     total 0
     drwxr-xr-x   4 Michael  Michael  136 Aug 17 16:10 nsrpc-1.0.0
 
-Other platform-specific packages have alse been included:
+Other platform-specific packages have also been included:
 
     % ls -l $ADP/platform/Darwin_i386
     total 56
