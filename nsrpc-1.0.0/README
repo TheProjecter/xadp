@@ -21,7 +21,7 @@ commands can be executed.
 2. Loading
 ----------
 
-Load the package using ns_itcl and then run the nsinit proc:
+Load the package using ns_ictl and then run the nsinit proc:
 
     server1:nscp 1> ns_ictl package require nsrpc
     1.0
