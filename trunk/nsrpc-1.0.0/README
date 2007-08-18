@@ -16,7 +16,7 @@ Contents
 
 Nsrpc provides a simple mechanism to send commands to remote servers for 
 execution. Thread pools provide an isolated execution space, and only exported
-commands can be executed for safety.
+commands can be executed.
 
 2. Loading
 ----------
