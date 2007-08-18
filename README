@@ -27,8 +27,7 @@ servers, as well as server communication via RPC.
 The default installation path is /usr/local/adp. To change this, edit the
 Makefile.inc file and set the BUILDPATH variable to the appropriate
 directory. Make sure you have rights to write to the parent directory.
-The following command will build all bundled software and dynamically link
-them as needed:
+The following command will build all bundled software:
 
     % make install
 
