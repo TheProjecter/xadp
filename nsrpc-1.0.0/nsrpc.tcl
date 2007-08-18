@@ -57,7 +57,6 @@ proc ::nsrpc::nsinit {} {
     set threadtimeout [ns_config $section threadtimeout 60]
     set maxconns [ns_config $section maxconns 0]
     
-
     lappend command ::nsrpc::start -maxthreads $maxThreads -minthreads 
     lappend command $minThreads -timeout $threadtimeout -maxconns $maxconns
     eval $command
