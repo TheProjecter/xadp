@@ -4,10 +4,10 @@ $Id:$
 Contents
 --------
     1. Introduction
-    2. Compiling and installing ADP
-    3. Filesystem
-    4. Starting and stoping servers
-    5. Creating new server types
+    2. Compiling and installing xADP
+    3. The Filesystem
+    4. Starting and Stopping Servers
+    5. Creating New Server Types
     6. Server Configuration Files
     7. Using Tcl Packages
 
@@ -20,8 +20,8 @@ cURL, TclCurl, tDOM, and Tcllib.  Using a single Makefile to build and link
 these features together, xADP offers an out-of-the-box experience for
 AOLserver.
 
-2. Compiling and installing ADP
--------------------------------
+2. Compiling and Installing xADP
+--------------------------------
 
 The default installation path is /usr/local/adp. To change this, edit the
 Makefile.inc file and set the BUILDPATH variable to the appropriate
@@ -38,8 +38,8 @@ where you installed xADP as the value for the ADP variable:
     alias start-aolserver='${ADP}/bin/startserver'
     alias stop-aolserver='${ADP}/bin/stopserver'
 
-3. Filesystem:
---------------
+3. The Filesystem
+-----------------
 
     % cd $ADP
     % ls -l
@@ -149,7 +149,7 @@ To stop the server running on port 8080:
     Shutdown pending...
     Shutdown complete.
 
-5. Creating new server types
+5. Creating New Server Types
 ----------------------------
 
 You do not need to do anything special to create a new server type. Just
