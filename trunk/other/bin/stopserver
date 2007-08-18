@@ -1,0 +1,104 @@
+#!/bin/sh
+# \
+thisscript=$0 ; thisdir=${thisscript/%stopserver/} ; exec ${thisdir}../platform/`uname`_`uname -m`/tcl/bin/tclsh "$0" $@
+
+proc printUsage {} {
+    puts "Usage: startserver ?-flag value?...\n"
+
+    foreach {flag description} [getFlagsAndDescriptions] {
+        puts [format "    %-*s  %s" 15 ${flag} ${description}]
+    }
+}
+
+proc getFlagsAndDescriptions {} {
+    lappend flagList -help {Prints this message}
+    lappend flagList -servertype {The type of server to stop (default is 'generic')}
+    lappend flagList -httpport {The port the server is running on (default is 8080)}
+
+    return $flagList
+}
+
+proc getFlags {} {
+    foreach {flag description} [getFlagsAndDescriptions] {
+        lappend flagList $flag
+    }
+
+    return $flagList
+}
+
+proc getProcessId {servertype httpport} {
+    set pidFile ${servertype}.${httpport}.pid
+    set pidFile [file dirname [info script]]/../logs/${pidFile}
+    set pidFile [file normalize $pidFile]
+
+    set pid ""
+
+    if {[file readable $pidFile]} {
+        if {[catch {set pid [exec cat $pidFile]}]} {
+            set pid ""
+        }
+    }
+
+    # Verify pid is still alive
+    if {[string length $pid]} {
+        if {[catch {
+            if {![string length [exec ps -p $pid | grep $pid]]} {
+                set pid ""
+            }
+        }]} {
+            set pid ""
+        }
+    }
+
+    return $pid
+}
+
+for {set x 0} {$x < $argc} {incr x} {
+    if {[string eq -help [lindex $argv $x]]} {
+        return [printUsage]
+    }
+
+    set flag [lindex $argv $x]
+    incr x
+    set value [lindex $argv $x]
+
+    if {[lsearch -exact [getFlags] $flag] == -1} {
+        printUsage
+        return
+    }
+
+    set [string trimleft $flag "-"] $value
+}
+
+if {![info exists servertype]} {
+    set servertype generic
+}
+
+if {![info exists httpport]} {
+    set httpport 8080
+}
+
+set pid [getProcessId $servertype $httpport]
+
+if {![string length $pid]} {
+    puts "No such server \"${servertype}\" running on port ${httpport}."
+    puts "If the server is running in foreground mode you can not stop"
+    puts "the server using this script. Switch to the shell the server"
+    puts "is running in and press ctl-c."
+    
+    return
+}
+
+exec kill $pid
+
+puts "Stoping server \"${servertype}\" on port ${httpport} (pid: ${pid})..."
+
+while 1 {
+   if {![string length [getProcessId $servertype $httpport]]} {
+       break
+   }
+   puts "Shutdown pending..."
+   after 1000
+}
+
+puts "Shutdown complete."

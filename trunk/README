@@ -1,0 +1,253 @@
+README: xADP
+$Id:$
+
+Contents
+--------
+    1. Introduction
+    2. Compiling and installing ADP
+    3. Filesystem
+    4. Starting and stoping servers
+    5. Creating new server types
+    6. Server Configuration Files
+    7. Using Tcl Packages
+
+1. Introduction
+---------------
+
+AOLserver Dynamic Platform (ADP) is a "batteries included" distribution 
+for AOLserver. It includes, but is not limited to, Tcl, AOLserver, MySql,
+cURL, TclCurl, tDOM, and Tcllib.  Using a single Makefile to build and link
+these features together, xADP offers an out of the box experience for
+AOLserver.
+
+2. Compiling and installing ADP
+-------------------------------
+
+The default installation path is /usr/local/adp. To change this, edit the
+Makefile.inc file and set the BUILDPATH variable to the appropriate
+directory. Make sure you have rights to write to the parent directory.
+The following command will build all bundled software and dynamically link
+them as needed:
+
+    % make install
+
+Set the following environment variables and aliases. Make sure to use the path
+where you installed xADP as the value for the ADP variable:
+
+    export ADP=/usr/local/adp
+    alias start-aolserver='${ADP}/bin/startserver'
+    alias stop-aolserver='${ADP}/bin/stopserver'
+
+3. Filesystem:
+--------------
+
+    % cd $ADP
+    % ls -l
+    drwxr-xr-x   4 Michael  Michael  136 Aug 18 12:21 bin
+    drwxr-xr-x   5 Michael  Michael  170 Aug 17 16:05 cfg
+    drwxr-xr-x   3 Michael  Michael  102 Aug 17 16:07 lib
+    drwxr-xr-x   8 Michael  Michael  272 Aug 18 12:25 logs
+    drwxr-xr-x   3 Michael  Michael  102 Aug 17 16:08 pages
+    drwxr-xr-x   3 Michael  Michael  102 Aug 17 15:53 platform
+    drwxr-xr-x   4 Michael  Michael  136 Aug 18 12:25 servers
+
+bin:
+    Contains executables to start and stop servers.
+cfg:
+    Contains configuration files. See the README file in this directory to 
+    understand server types and the start-up sequence.
+lib:
+    Contains Tcl packages. Place all your Tcl packages in this directory.
+    All servers will look for packages in this directory.
+logs:
+    Contains all the logs for all the servers and the pid file for each 
+    running server.
+pages:
+    Contains all pages. The idea of ADP is that there are "types" of 
+    servers. All servers of the same "type" will share the same pageroot.
+platform:
+    Contains platform specific binaries, libraries, and packages.
+servers:
+    Contains server-specific directories (if needed).
+
+
+3. Starting and Stopping Servers
+--------------------------------
+
+The bin directory comes with executables to stop and start servers. You can 
+execute these files directly or use the their aliases. The examples execute
+them directly.
+
+    % cd $ADP/bin
+    % ./startserver -help
+    Usage: startserver ?-flag value?...
+
+        -help            Prints this message
+        -servertype      The type of server (default is 'generic')
+        -httpport        port for incoming requests (default is '8080')
+        -nscpport        port for the nscp module
+        -user            The user to run the server as
+        -group           The group to run the server as
+        -foreground      Run in foreground mode
+        -version         Returns the nsd version info
+   
+
+To start a 'generic' AOLserver on port '8080' in the foreground:
+
+    % ./startserver -foreground
+
+Default values for -servertype and -httpport are 'generic' and '8080' so you 
+did not need to specify those params. To stop the server, press ctl+c.
+
+To start the server again, this time in the background:
+
+    % ./startserver
+    Server: generic
+    Http port: 8080
+    Nscp port: 
+    Server log: /Users/Michael/builds/adp/logs/generic.8080.server.log
+
+    Starting server...
+    Server "generic" started on port 8080 (pid: 23192).
+
+You can start another 'generic' server on a different port and specify
+a port for the server's nscp module:
+
+    % ./startserver -httpport 8081 -nscpport 8082
+    Server: generic
+    Http port: 8081
+    Nscp port: 8082
+    Server log: /Users/Michael/builds/adp/logs/generic.8080.server.log
+
+    Starting server...
+    Server "generic" started on port 8080 (pid: 23192). 
+
+You now have 2 AOLservers listening on different ports, both  serving pages
+from the $ADP/pages/generic directory. The logs for the two servers are in 
+$ADP/logs:
+
+    % ls -l $ADP/logs
+    total 120
+    -rw-r--r--   1 Michael  Michael      0 Aug 17 16:08 generic.8080.access.log
+    -rw-r--r--   1 Michael  Michael      6 Aug 18 12:59 generic.8080.pid
+    -rw-r--r--   1 Michael  Michael  38770 Aug 18 12:59 generic.8080.server.log
+    -rw-r--r--   1 Michael  Michael      0 Aug 18 12:25 generic.8081.access.log
+    -rw-r--r--   1 Michael  Michael      6 Aug 18 12:59 generic.8081.pid
+    -rw-r--r--   1 Michael  Michael  10259 Aug 18 12:59 generic.8081.server.log
+
+To stop the server running on port 8081:
+
+    % ./stopserver -httpport 8081
+    Stoping server "generic" on port 8081 (pid: 23108)...
+    Shutdown pending...
+    Shutdown complete.
+
+To stop the server running on port 8080:
+
+    % ./stopserver 
+    Stoping server "generic" on port 8080 (pid: 23192)...
+    Shutdown pending...
+    Shutdown complete.
+
+5. Creating new server types
+----------------------------
+
+You do not need to do anything special to create a new server type. Just
+specify the name of the type when starting the server:
+
+    % ./startserver -servertype frontend -httpport 8201
+    % Server: frontend
+    % Http port: 8201
+    % Nscp port: 
+    % Server log: /Users/Michael/builds/adp/logs/frontend.8201.server.log
+
+    % Starting server...
+    % Server "frontend" started on port 8201 (pid: 23292).
+
+A pages directory was created automatically if it did not already exists and
+the server is using it for the pageroot.
+
+    % ls -l $ADP/pages
+    total 0
+    drwxr-xr-x   2 Michael  Michael  68 Aug 18 13:05 frontend
+    drwxr-xr-x   2 Michael  Michael  68 Aug 17 16:08 generic
+
+Logs are all in the logs directory:
+
+    % ls -l $ADP/logs
+    total 128
+    -rw-r--r--   1 Michael  Michael      0 Aug 18 13:05 frontend.8201.access.log
+    -rw-r--r--   1 Michael  Michael      6 Aug 18 13:05 frontend.8201.pid
+    -rw-r--r--   1 Michael  Michael   4252 Aug 18 13:06 frontend.8201.server.log
+    -rw-r--r--   1 Michael  Michael      0 Aug 17 16:08 generic.8080.access.log
+    -rw-r--r--   1 Michael  Michael  40555 Aug 18 13:08 generic.8080.server.log
+    -rw-r--r--   1 Michael  Michael      0 Aug 18 12:25 generic.8081.access.log
+    -rw-r--r--   1 Michael  Michael  12044 Aug 18 13:08 generic.8081.server.log
+
+A server-specific directory was created in the $ADP/servers directory in case 
+any modules or Tcl packages use that directory:
+
+    % ls -l $ADP/servers
+    total 0
+    drwxr-xr-x   3 Michael  Michael  102 Aug 18 13:05 frontend.8201
+    drwxr-xr-x   3 Michael  Michael  102 Aug 17 16:08 generic.8080
+    drwxr-xr-x   3 Michael  Michael  102 Aug 18 12:25 generic.8081
+
+6. Server Configuration Files
+-----------------------------
+
+To specify a unique server configuration for specific server types, see the 
+README file in $ADP/cfg.
+
+7. Using Tcl Packages
+---------------------
+
+It is encouraged to use Tcl packages the xAPD. Place Tcl packages in the 
+$ADP/lib directory. A package called nsrpc-1.0.0 has been included with the 
+distribution.
+
+    % ls -l $ADP/lib
+    total 0
+    drwxr-xr-x   4 Michael  Michael  136 Aug 17 16:10 nsrpc-1.0.0
+
+Other platform-specific packages have alse been included:
+
+    % ls -l $ADP/platform/Darwin_i386
+    total 56
+    lrwxr-xr-x    1 Michael  Michael   14 Aug 17 15:54 aolserver -> aolserver-head
+    drwxr-xr-x    9 Michael  Michael  306 Aug 17 15:54 aolserver-head
+    lrwxr-xr-x    1 Michael  Michael   11 Aug 17 15:55 curl -> curl-7.16.2
+    drwxr-xr-x    6 Michael  Michael  204 Aug 17 15:55 curl-7.16.2
+    lrwxr-xr-x    1 Michael  Michael   12 Aug 17 16:05 mysql -> mysql-5.0.37
+    drwxr-xr-x   11 Michael  Michael  374 Aug 17 16:05 mysql-5.0.37
+    lrwxr-xr-x    1 Michael  Michael   10 Aug 17 15:53 tcl -> tcl-8.4.15
+    drwxr-xr-x    6 Michael  Michael  204 Aug 17 15:53 tcl-8.4.15
+    lrwxr-xr-x    1 Michael  Michael   14 Aug 17 15:56 tclcurl -> tclcurl-7.16.2
+    drwxr-xr-x    6 Michael  Michael  204 Aug 17 15:56 tclcurl-7.16.2
+    lrwxr-xr-x    1 Michael  Michael   10 Aug 17 16:06 tcllib -> tcllib-1.9
+    drwxr-xr-x    5 Michael  Michael  170 Aug 17 16:06 tcllib-1.9
+    lrwxr-xr-x    1 Michael  Michael   10 Aug 17 15:56 tdom -> tdom-0.8.1
+    drwxr-xr-x    6 Michael  Michael  204 Aug 17 15:56 tdom-0.8.1
+
+These paths are added to the Tcl ::auto_path variable at server startup. 
+This is done by the following config settings in the common.cfg.
+
+    % vi $ADP/cfg/common.cfg
+
+    (line 101)
+    ns_section "ns/server/${serverName}/packages"
+        ns_param library ${home}/lib
+        ns_param library ${platformDir}/tdom/lib
+        ns_param library ${platformDir}/tclcurl/lib
+        ns_param library ${platformDir}/tcllib/lib
+        ns_param require tdom
+        ns_param require TclCurl
+        ns_param require nsrpc
+
+The require prarm will load the package at start up and run the nsinit and 
+nspostinit procs if applicable. See the packages.tcl file that comes with
+AOLserver:
+
+        $ADP/platform/<Your platform>/aolserver/modules/tcl/packages.tcl
+
+
