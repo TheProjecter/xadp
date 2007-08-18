@@ -1,4 +1,4 @@
-README: nsrpc
+README: nsrpc-1.0.0
 $Id:$
 
 Contents
@@ -12,6 +12,7 @@ Contents
 
 1. Loading
 ----------
+
 Load the package using ns_itcl and then run the nsinit proc:
 
     server1:nscp 1> ns_ictl package require nsrpc
@@ -21,6 +22,7 @@ Load the package using ns_itcl and then run the nsinit proc:
 
 2. Alternative Loading
 ----------------------
+
 If you have the HEAD version of AOLserver you can use the nsd config
 to load packages. This feature is unreleased and subject to change:
 
@@ -28,8 +30,14 @@ to load packages. This feature is unreleased and subject to change:
         ns_param library /path/to/nsrpc-1.0.0
         ns_param require nsrpc
 
+At server start up, the library is added to the ::auto_path variable, the
+package is required using 'ns_ictl package require', and the nsinit proc is
+executed. This is done by the packages.tcl file that comes with AOLserver 
+which is sourced at server startup.
+
 3. Configuration
 ----------------
+
 Default values can be overridden with the following nsd config prams:
 
     ns_section ns/servers/server1/packages/nsrpc
@@ -41,16 +49,22 @@ Default values can be overridden with the following nsd config prams:
 
 4. Usage
 --------
+
 You can send commands to any server running this package. First export the 
 command you want to execute on the remote server:
 
     server1:nscp 3> ::nsrpc::export ns_time
     1
+    server1:nscp 4> ::nsrpc::export ns_log
+    1
 
-Make the call to execute the exported procedure form another server:
+Make the call to the exported procedure form another server:
 
-    server2:nscp 4> ::nsrpc::call 10.10.0.116:8000 [list ns_time]
+    server2:nscp 3> ::nsrpc::call 10.10.0.116:8000 [list ns_time]
     1178142293
+    server2:nscp 4> ::nsrpc::call 10.10.0.116:8000 [list ns_log notice foo]
+    
+    server2:nscp 5>
 
 See the in-line documentation on how to send files and set the per-call
 timeout flag.
