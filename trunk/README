@@ -63,8 +63,8 @@ logs:
     Contains all the logs for all the servers and the pid file for each 
     running server.
 pages:
-    Contains all pages. The idea of ADP is that there are "types" of 
-    servers. All servers of the same "type" will share the same pageroot.
+    Contains all pages. All servers of the same "type" will share the same
+    pageroot.
 platform:
     Contains platform specific binaries, libraries, and packages.
 servers:
