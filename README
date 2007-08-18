@@ -14,7 +14,7 @@ Contents
 1. Introduction
 ---------------
 
-The AOLserver Dynamic Platform (ADP) is a "batteries included" distribution 
+The X AOLserver Dynamic Platform (xADP) is a "batteries included" distribution 
 for AOLserver. It includes, but is not limited to, Tcl, AOLserver, MySql,
 cURL, TclCurl, tDOM, Tcllib, and nsrpc. Using a single Makefile to build and
 link these features together, xADP offers an out-of-the-box experience for 
