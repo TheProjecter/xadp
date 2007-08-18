@@ -11,8 +11,8 @@ Alternative Loading:
     to load packages. This feature is unreleased and subject to change: 
 
     ns_section "ns/server/server1/packages"
-        ns_param librarylist [list /user/local/aolserver/lib]
-        ns_param packagelist [list nsrpc]
+        ns_param library /path/to/nsrpc-1.0.0
+        ns_param require nsrpc
 
 Configuration:
     Default values can be overridden with the following nsd config prams:
