@@ -1,55 +1,73 @@
-Loading:
-    Load the package using ns_itcl and then run the nsinit proc.
+README: nsrpc
+$Id:$
+
+Contents
+--------
+    1. Loading
+    2. Alternative Loading
+    3. Configuration
+    4. Usage
+    5. Non-blocking Usage
+    6. Non-blocking Detached Usage
+
+1. Loading
+----------
+Load the package using ns_itcl and then run the nsinit proc:
 
     server1:nscp 1> ns_ictl package require nsrpc
     1.0
     server1:nscp 2> ::nsrpc::nsinit
     1
 
-Alternative Loading:
-    If you have the HEAD version of AOLserver you can use the nsd config
-    to load packages. This feature is unreleased and subject to change: 
+2. Alternative Loading
+----------------------
+If you have the HEAD version of AOLserver you can use the nsd config
+to load packages. This feature is unreleased and subject to change:
 
     ns_section "ns/server/server1/packages"
         ns_param library /path/to/nsrpc-1.0.0
         ns_param require nsrpc
 
-Configuration:
-    Default values can be overridden with the following nsd config prams:
+3. Configuration
+----------------
+Default values can be overridden with the following nsd config prams:
 
-    ns_section ns/servers/${serverName}/packages/nsrpc
+    ns_section ns/servers/server1/packages/nsrpc
         ns_param maxthreads 10           ; # The max number of rpc threads.
         ns_param minthreads 1            ; # The min number of rpc threads.
         ns_param threadtimeout 60        ; # Time idle before timeout.
         ns_param maxconns 0              ; # Number of conns before die (0=off).
         ns_param operationtimeoutms 1000 ; # Total operation timeout in ms.
 
-Usage:
-    You can send commands to a server running this package. First export the 
-    command you want to execute (this is done on the remote server):
+4. Usage
+--------
+You can send commands to any server running this package. First export the 
+command you want to execute on the remote server:
 
     server1:nscp 3> ::nsrpc::export ns_time
     1
 
-    Make the call to execute the exported procedure:
+Make the call to execute the exported procedure form another server:
 
-    server1:nscp 4> ::nsrpc::call 10.10.0.116:8000 [list ns_time]
+    server2:nscp 4> ::nsrpc::call 10.10.0.116:8000 [list ns_time]
     1178142293
 
-    See the in-line documentation on how to send files and set the per-call
-    timeout flag.
+See the in-line documentation on how to send files and set the per-call
+timeout flag.
 
-Non-blocking Usage:
+5. Non-blocking Usage
+---------------------
     
-    server1:nscp 5> ::nsrpc::queue 10.10.0.116:8000 [list ns_time]
+    server2:nscp 5> ::nsrpc::queue 10.10.0.116:8000 [list ns_time]
     job0
-    server1:nscp 6> ::nsrpc::wait job0
+    server2:nscp 6> ::nsrpc::wait job0
     1178828140
 
-Non-blocking Detached Usage:
+6. Non-blocking Detached Usage
+------------------------------
 
-    server1:nscp 7> ::nsrpc::queue -detached 10.10.0.116:8000 [list ns_time]
+    server2:nscp 7> ::nsrpc::queue -detached 10.10.0.116:8000 [list ns_time]
     job1
 
-    server1:nscp 8> ::nsrpc::wait job1
+    server2:nscp 8> ::nsrpc::wait job1
     no such job: job1
