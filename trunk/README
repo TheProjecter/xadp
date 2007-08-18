@@ -212,8 +212,13 @@ type-specific directory first so they can overwrite any common settings.
 Nothing is truly overwritten. Since config params are returned using a ns_set,
 the first param set is the one that is returned by the ns_config API and
 usually the one that is used by the server at start up. By sourcing the server
-specific cfg files first their params take precedence over the same params set
-later by the common.cfg file.
+specific cfg files first, their params take precedence over the same params set
+later by the common.cfg file. This allows you to set a common param in the
+common.cfg file, but then 'overwrite' it for a specific server type if you need.
+
+It also allows you to specify different Tcl packages to load at startup for the 
+different server types. See the section 'Using Tcl Packages' for information 
+on loading Tcl packages at startup.
 
 7. Using Tcl Packages
 ---------------------
