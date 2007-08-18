@@ -90,7 +90,6 @@ them directly.
         -group           The group to run the server as
         -foreground      Run in foreground mode
         -version         Returns the nsd version info
-   
 
 To start a 'generic' AOLserver on port '8080' in the foreground:
 
@@ -99,7 +98,7 @@ To start a 'generic' AOLserver on port '8080' in the foreground:
 Default values for -servertype and -httpport are 'generic' and '8080' so you 
 did not need to specify those params. To stop the server, press ctl+c.
 
-To start the server again, this time in the background:
+Start the server again, this time in the background:
 
     % ./startserver
     Server: generic
@@ -202,7 +201,7 @@ README file in $ADP/cfg.
 7. Using Tcl Packages
 ---------------------
 
-It is encouraged to use Tcl packages the xAPD. Place Tcl packages in the 
+It is encouraged to use Tcl packages with xAPD. Place Tcl packages in the 
 $ADP/lib directory. A package called nsrpc-1.0.0 has been included with the 
 distribution.
 
