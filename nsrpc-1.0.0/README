@@ -3,14 +3,22 @@ $Id:$
 
 Contents
 --------
-    1. Loading
-    2. Alternative Loading
-    3. Configuration
-    4. Usage
-    5. Non-blocking Usage
-    6. Non-blocking Detached Usage
+    1. Introduction
+    2. Loading
+    3. Alternative Loading
+    4. Configuration
+    5. Usage
+    6. Non-blocking Usage
+    7. Non-blocking Detached Usage
 
-1. Loading
+1. Introduction
+---------------
+
+Nsrpc provides a simple mechanism to send commands to remote servers for 
+execution. Thread pools provide an isolated execution space, and only exported
+commands can be executed for safety.
+
+2. Loading
 ----------
 
 Load the package using ns_itcl and then run the nsinit proc:
@@ -20,7 +28,7 @@ Load the package using ns_itcl and then run the nsinit proc:
     server1:nscp 2> ::nsrpc::nsinit
     1
 
-2. Alternative Loading
+3. Alternative Loading
 ----------------------
 
 If you have the HEAD version of AOLserver you can use the nsd config
@@ -35,7 +43,7 @@ package is required using 'ns_ictl package require', and the nsinit proc is
 executed. This is done by the packages.tcl file that comes with AOLserver 
 which is sourced at server startup.
 
-3. Configuration
+4. Configuration
 ----------------
 
 Default values can be overridden with the following nsd config prams:
@@ -47,7 +55,7 @@ Default values can be overridden with the following nsd config prams:
         ns_param maxconns 0              ; # Number of conns before die (0=off).
         ns_param operationtimeoutms 1000 ; # Total operation timeout in ms.
 
-4. Usage
+5. Usage
 --------
 
 You can send commands to any server running this package. First export the 
@@ -69,7 +77,7 @@ Make the call to the exported procedure form another server:
 See the in-line documentation on how to send files and set the per-call
 timeout flag.
 
-5. Non-blocking Usage
+6. Non-blocking Usage
 ---------------------
     
     server2:nscp 5> ::nsrpc::queue 10.10.0.116:8000 [list ns_time]
@@ -77,7 +85,7 @@ timeout flag.
     server2:nscp 6> ::nsrpc::wait job0
     1178828140
 
-6. Non-blocking Detached Usage
+7. Non-blocking Detached Usage
 ------------------------------
 
     server2:nscp 7> ::nsrpc::queue -detached 10.10.0.116:8000 [list ns_time]
