@@ -4,7 +4,7 @@ PLATFORMDIRS = tcl-8.4.15 aolserver-head curl-7.16.2 tclcurl-7.16.2 tdom-0.8.1 m
 
 OTHERLIBS = nsrpc-1.0.0 tcllib-1.9
 
-install: installplatform installfilesystem installotherlibs
+install: installfilesystem installplatform installotherlibs
 
 clean: cleanplatform cleanotherlibs
 
