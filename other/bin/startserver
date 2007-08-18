@@ -1,0 +1,177 @@
+#!/bin/sh
+# \
+thisscript=$0 ; thisdir=${thisscript/%startserver/} ; exec ${thisdir}../platform/`uname`_`uname -m`/tcl/bin/tclsh "$0" $@
+
+proc printUsage {} {
+    puts "Usage: startserver ?-flag value?...\n"
+
+    foreach {flag description} [getFlagsAndDescriptions] {
+        puts [format "    %-*s  %s" 15 ${flag} ${description}]
+    }
+}
+
+proc getFlagsAndDescriptions {} {
+    lappend flagList -help {Prints this message}
+    lappend flagList -servertype {The type of server (default is 'generic')}
+    lappend flagList -httpport {port for incoming requests (default is 8080)}
+    lappend flagList -nscpport {port for the nscp module}
+    lappend flagList -user {The user to run the server as}
+    lappend flagList -group {The group to run the server as}
+    lappend flagList -backgound {Run in background mode}
+    lappend flagList -version {Returns the nsd version info}
+
+    return $flagList
+}
+
+proc getFlags {} {
+    foreach {flag description} [getFlagsAndDescriptions] {
+        lappend flagList $flag
+    }
+
+    return $flagList
+}
+
+proc getProcessId {servertype httpport} {
+    set pidFile ${servertype}.${httpport}.pid
+    set pidFile [file dirname [info script]]/../logs/${pidFile}
+    set pidFile [file normalize $pidFile]
+
+    set pid ""
+
+    if {[file readable $pidFile]} {
+        if {[catch {set pid [exec cat $pidFile]}]} {
+            set pid ""
+        }
+    }
+
+    # Verify pid is still alive
+    if {[string length $pid]} {
+        if {[catch {
+            if {![string length [exec ps -p $pid | grep $pid]]} {
+                set pid ""
+            }
+        }]} {
+            set pid ""
+        }
+    }
+
+    return $pid
+}
+
+for {set x 0} {$x < $argc} {incr x} {
+    if {[string eq -help [lindex $argv $x]]} {
+        return [printUsage]
+    }
+
+    if {[string eq -foreground [lindex $argv $x]]} {
+        set foreground true
+        continue
+    }
+
+    if {[string eq -inittab [lindex $argv $x]]} {
+        set inittab true
+        continue
+    }
+
+    set flag [lindex $argv $x]
+    incr x
+    set value [lindex $argv $x]
+
+    if {[lsearch -exact [getFlags] $flag] == -1} {
+        printUsage
+        return
+    }
+
+    set [string trimleft $flag "-"] $value
+}
+
+if {[string eq root [exec whoami]] && ![info exists user]} {
+    puts "The server can not run as root. You must use the -user flag."
+    return
+}
+
+if {![info exists servertype]} {
+    set servertype generic
+}
+
+if {![info exists httpport]} {
+    set httpport 8080
+}
+
+if {[string length [set pid [getProcessId $servertype $httpport]]]} {
+    puts "There is already  a \"${servertype}\" server running on port ${httpport} (pid: ${pid})."
+    return
+}
+
+if {![info exists nscpport]} {
+    set nscpport ""
+}
+
+set os [exec uname]
+set arch [exec uname -m]
+set platform ${os}_${arch}
+set platformdir [file dirname [info script]]/../platform/${platform}
+set platformdir [file normalize $platformdir]
+
+lappend nsdcommand ${platformdir}/aolserver/bin/nsd
+
+if {[info exists version]} {
+    lappend nsdcommand -V
+    return [eval exec $nsdcommand >&@ stdout]
+}
+
+if {[info exists user]} {
+    lappend nsdcommand -u $user
+}
+
+if {[info exists group]} {
+    lappend nsdcommand -g $group
+}
+
+if {[info exists foreground]} {
+    lappend nsdcommand -f
+} elseif {[info exists inittab]} {
+    lappend nsdcommand -i
+}
+
+set cfgFile [file dirname [info script]]/../cfg/common.cfg
+set cfgFile [file normalize $cfgFile]
+
+lappend nsdcommand -t $cfgFile $servertype $httpport $nscpport $platformdir
+
+if {[info exists foreground]} {
+    lappend nsdcommand >&@ stdout
+} else {
+    lappend nsdcommand &
+}
+
+eval exec $nsdcommand
+
+if {[info exists foreground]} {
+    return
+}
+
+set logFile ${servertype}.${httpport}.server.log
+set logFile [file normalize [file dirname [info script]]/../logs/${logFile}]
+set pidFile [file dirname $logFile]/${servertype}.${httpport}.pid
+
+puts "Server: ${servertype}"
+puts "Http port: ${httpport}"
+puts "Nscp port: ${nscpport}"
+puts "Server log: $logFile"
+puts ""
+
+while {![file readable $pidFile]} {
+    puts "Starting server..."
+    after 1000
+}
+
+# Verify the process has started.
+if {![string length [set pid [getProcessId $servertype $httpport]]]} {
+    puts "The server could not be started. See the server log for details."
+    file delete -force $pidFile
+    return
+}
+
+puts "Server \"${servertype}\" started on port ${httpport} (pid: ${pid})."
+
