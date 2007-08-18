@@ -70,7 +70,6 @@ platform:
 servers:
     Contains server-specific directories (if needed).
 
-
 4. Starting and Stopping Servers
 --------------------------------
 
