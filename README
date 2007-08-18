@@ -54,8 +54,8 @@ where you installed xADP as the value for the ADP variable:
 bin:
     Contains executables to start and stop servers.
 cfg:
-    Contains configuration files. See the README file in this directory to 
-    understand server types and the start-up sequence.
+    Contains configuration files. See the section "Server Configuration Files"
+    for more information.
 lib:
     Contains Tcl packages. Place all your Tcl packages in this directory.
     All servers will look for packages in this directory.
@@ -74,8 +74,7 @@ servers:
 --------------------------------
 
 The bin directory comes with executables to stop and start servers. You can 
-execute these files directly or use the their aliases. The examples execute
-them directly.
+execute these files directly or use the their environment aliases.
 
     % cd $ADP/bin
     % ./startserver -help
@@ -266,5 +265,3 @@ nspostinit procs if applicable. See the packages.tcl file that comes with
 AOLserver:
 
         $ADP/platform/<Your platform>/aolserver/modules/tcl/packages.tcl
-
-
