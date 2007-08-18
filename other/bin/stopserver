@@ -91,7 +91,7 @@ if {![string length $pid]} {
 
 exec kill $pid
 
-puts "Stoping server \"${servertype}\" on port ${httpport} (pid: ${pid})..."
+puts "Stopping server \"${servertype}\" on port ${httpport} (pid: ${pid})..."
 
 while 1 {
    if {![string length [getProcessId $servertype $httpport]]} {
