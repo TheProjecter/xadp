@@ -59,7 +59,7 @@ Default values can be overridden with the following nsd config prams:
 --------
 
 You can send commands to any server running this package. First export the 
-command you want to execute on the remote server:
+command you want to execute on the remote server (To Do: Add ACL):
 
     server1:nscp 3> ::nsrpc::export ns_time
     1
