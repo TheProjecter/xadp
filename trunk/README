@@ -194,8 +194,27 @@ any modules or Tcl packages use that directory:
 6. Server Configuration Files
 -----------------------------
 
-To specify a unique server configuration for specific server types, see the 
-README file in $ADP/cfg.
+Take a look at the cfg dir:
+
+    % cd $ADP/cfg
+    % ls -l
+    -rw-r--r--   1 Michael  Michael  3246 Aug 18 16:22 common.cfg
+    drwxr-xr-x   3 Michael  Michael   102 Aug 18 16:22 generic
+
+Notice that there is a directory called 'generic'. This is where all the cfg
+files for the 'generic' server type are kept. You can create a directory for
+each server-type you have. 
+
+The common.cfg file is the file that is passed to the nsd binary by the 
+startserver script. It sources all *.cfg files in the type-specific directory. 
+It it also has params common to all server types. It sources the files in the
+type-specific directory first so they can overwrite any common settings.
+
+Nothing is truly overwritten. Since config params are returned using a ns_set,
+the first param set is the one that is returned by the ns_config API and
+usually the one that is used by the server at start up. By sourcing the server
+specific cfg files first their params take precedence over the same params set
+later by the common.cfg file.
 
 7. Using Tcl Packages
 ---------------------
