@@ -19,7 +19,7 @@ for AOLserver. It includes, but is not limited to, Tcl, AOLserver, MySql,
 cURL, TclCurl, tDOM, Tcllib, and nsrpc. Using a single Makefile to build and
 link these features together, xADP offers an out-of-the-box experience for 
 AOLserver. xADP also provides simple mechanisms for starting and stopping
-servers, as well as server communication via rpc.
+servers, as well as server communication via RPC.
 
 2. Compiling and Installing xADP
 --------------------------------
