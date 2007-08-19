@@ -121,7 +121,7 @@ a port for the server's nscp module:
 
 You now have 2 AOLservers listening on different ports, both  serving pages
 from the $XADP/pages/generic directory. The logs for the two servers are in 
-$ADP/logs:
+$XADP/logs:
 
     % ls -l $XADP/logs
     total 120
@@ -207,14 +207,14 @@ each server-type you have.
 The common.cfg file is the file that is passed to the nsd binary by the 
 startserver script. It sources all *.cfg files in the type-specific directory. 
 It it also has params common to all server types. It sources the files in the
-type-specific directory first so they can overwrite any common settings.
+type-specific directory first so they can override any common settings.
 
-Nothing is truly overwritten. Since config params are returned using a ns_set,
-the first param set is the one that is returned by the ns_config API and
-usually the one that is used by the server at start up. By sourcing the server
-specific cfg files first, their params take precedence over the same params set
-later by the common.cfg file. This allows you to set a common param in the
-common.cfg file, but then 'overwrite' it for a specific server type if you need.
+Since config params are returned using a ns_set, the first param set is the 
+one that is returned by the ns_config API and usually the one that is used by 
+the server at start up. By sourcing the type-specific cfg files first, their 
+params take precedence over the same params set later by the common.cfg file. 
+This allows you to set a common param in the common.cfg file, but then 
+'override' it for a specific server type if you need.
 
 It also allows you to specify different Tcl packages to load at startup for the 
 different server types. See the section 'Using Tcl Packages' for information 
