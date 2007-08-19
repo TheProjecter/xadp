@@ -24,7 +24,7 @@ servers, as well as server communication via RPC.
 2. Compiling and Installing xADP
 --------------------------------
 
-The default installation path is /usr/local/adp. To change this, edit the
+The default installation path is /usr/local/xadp. To change this, edit the
 Makefile.inc file and set the BUILDPATH variable to the appropriate
 directory. Make sure you have rights to write to the parent directory.
 The following command will build all bundled software:
@@ -32,16 +32,16 @@ The following command will build all bundled software:
     % make install
 
 Set the following environment variables and aliases. Make sure to use the path
-where you installed xADP as the value for the ADP variable:
+where you installed xADP as the value for the XADP variable:
 
-    export ADP=/usr/local/adp
-    alias start-aolserver='${ADP}/bin/startserver'
-    alias stop-aolserver='${ADP}/bin/stopserver'
+    export XADP=/usr/local/xadp
+    alias start-aolserver='${XADP}/bin/startserver'
+    alias stop-aolserver='${XADP}/bin/stopserver'
 
 3. The Filesystem
 -----------------
 
-    % cd $ADP
+    % cd $XADP
     % ls -l
     drwxr-xr-x   4 Michael  Michael  136 Aug 18 12:21 bin
     drwxr-xr-x   5 Michael  Michael  170 Aug 17 16:05 cfg
@@ -76,7 +76,7 @@ servers:
 The bin directory comes with executables to stop and start servers. You can 
 execute these files directly or use the their environment aliases.
 
-    % cd $ADP/bin
+    % cd $XADP/bin
     % ./startserver -help
     Usage: startserver ?-flag value?...
 
@@ -102,7 +102,7 @@ Start the server again, this time in the background:
     Server: generic
     Http port: 8080
     Nscp port: 
-    Server log: /Users/Michael/builds/adp/logs/generic.8080.server.log
+    Server log: /usr/local/xadp/logs/generic.8080.server.log
 
     Starting server...
     Server "generic" started on port 8080 (pid: 23192).
@@ -114,16 +114,16 @@ a port for the server's nscp module:
     Server: generic
     Http port: 8081
     Nscp port: 8082
-    Server log: /Users/Michael/builds/adp/logs/generic.8080.server.log
+    Server log: /usr/local/xadp/logs/generic.8080.server.log
 
     Starting server...
     Server "generic" started on port 8080 (pid: 23192). 
 
 You now have 2 AOLservers listening on different ports, both  serving pages
-from the $ADP/pages/generic directory. The logs for the two servers are in 
+from the $XADP/pages/generic directory. The logs for the two servers are in 
 $ADP/logs:
 
-    % ls -l $ADP/logs
+    % ls -l $XADP/logs
     total 120
     -rw-r--r--   1 Michael  Michael      0 Aug 17 16:08 generic.8080.access.log
     -rw-r--r--   1 Michael  Michael      6 Aug 18 12:59 generic.8080.pid
@@ -156,7 +156,7 @@ specify the name of the type when starting the server:
     % Server: frontend
     % Http port: 8201
     % Nscp port: 
-    % Server log: /Users/Michael/builds/adp/logs/frontend.8201.server.log
+    % Server log: /usr/local/xadp/logs/frontend.8201.server.log
 
     % Starting server...
     % Server "frontend" started on port 8201 (pid: 23292).
@@ -164,14 +164,14 @@ specify the name of the type when starting the server:
 A pages directory was created automatically if it did not already exists and
 the server is using it for the pageroot.
 
-    % ls -l $ADP/pages
+    % ls -l $XADP/pages
     total 0
     drwxr-xr-x   2 Michael  Michael  68 Aug 18 13:05 frontend
     drwxr-xr-x   2 Michael  Michael  68 Aug 17 16:08 generic
 
 Logs are all in the logs directory:
 
-    % ls -l $ADP/logs
+    % ls -l $XADP/logs
     total 128
     -rw-r--r--   1 Michael  Michael      0 Aug 18 13:05 frontend.8201.access.log
     -rw-r--r--   1 Michael  Michael      6 Aug 18 13:05 frontend.8201.pid
@@ -181,10 +181,10 @@ Logs are all in the logs directory:
     -rw-r--r--   1 Michael  Michael      0 Aug 18 12:25 generic.8081.access.log
     -rw-r--r--   1 Michael  Michael  12044 Aug 18 13:08 generic.8081.server.log
 
-A server-specific directory was created in the $ADP/servers directory in case 
+A server-specific directory was created in the $XADP/servers directory in case 
 any modules or Tcl packages use that directory:
 
-    % ls -l $ADP/servers
+    % ls -l $XADP/servers
     total 0
     drwxr-xr-x   3 Michael  Michael  102 Aug 18 13:05 frontend.8201
     drwxr-xr-x   3 Michael  Michael  102 Aug 17 16:08 generic.8080
@@ -195,7 +195,7 @@ any modules or Tcl packages use that directory:
 
 Take a look at the cfg dir:
 
-    % cd $ADP/cfg
+    % cd $XADP/cfg
     % ls -l
     -rw-r--r--   1 Michael  Michael  3246 Aug 18 16:22 common.cfg
     drwxr-xr-x   3 Michael  Michael   102 Aug 18 16:22 generic
@@ -224,10 +224,10 @@ on loading Tcl packages at startup.
 ---------------------
 
 It is encouraged to use Tcl packages with xAPD. Place Tcl packages in the 
-$ADP/lib directory. A package called nsrpc-1.0.0 has been included with the 
+$XADP/lib directory. A package called nsrpc-1.0.0 has been included with the 
 distribution.
 
-    % ls -l $ADP/lib
+    % ls -l $XADP/lib
     total 0
     drwxr-xr-x   4 Michael  Michael  136 Aug 17 16:10 nsrpc-1.0.0
 
@@ -236,7 +236,7 @@ configuration and usage.
 
 Other platform-specific packages have also been included:
 
-    % ls -l $ADP/platform/Darwin_i386
+    % ls -l $XADP/platform/Darwin_i386
     total 56
     lrwxr-xr-x    1 Michael  Michael   14 Aug 17 15:54 aolserver -> aolserver-head
     drwxr-xr-x    9 Michael  Michael  306 Aug 17 15:54 aolserver-head
@@ -256,7 +256,7 @@ Other platform-specific packages have also been included:
 These paths are added to the Tcl ::auto_path variable at server startup. 
 This is done by the following config settings in the common.cfg.
 
-    % vi $ADP/cfg/common.cfg
+    % vi $XADP/cfg/common.cfg
 
     (line 101)
     ns_section "ns/server/${serverName}/packages"
@@ -272,4 +272,4 @@ The 'require' prarm will load the package at start up and run the nsinit and
 nspostinit procs if applicable. See the packages.tcl file that comes with
 AOLserver:
 
-        $ADP/platform/<Your platform>/aolserver/modules/tcl/packages.tcl
+        $XADP/platform/<Your platform>/aolserver/modules/tcl/packages.tcl
