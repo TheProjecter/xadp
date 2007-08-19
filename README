@@ -190,6 +190,13 @@ any modules or Tcl packages use that directory:
     drwxr-xr-x   3 Michael  Michael  102 Aug 17 16:08 generic.8080
     drwxr-xr-x   3 Michael  Michael  102 Aug 18 12:25 generic.8081
 
+To stop the 'frontend' server on port '8201':
+
+    % ./stopserver -servertype frontend -httpport 8201
+    Stopping server "frontend" on port 8201 (pid: 23292)...
+    Shutdown pending...
+    Shutdown complete.
+
 6. Server Configuration Files
 -----------------------------
 
