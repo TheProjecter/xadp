@@ -1,4 +1,4 @@
-DIRS = bin cfg pages servers
+DIRS = bin cfg pages servers cfg/generic logs
 
 install:
 	@for DIR in $(DIRS); do (echo $$DIR ; cd $$DIR ; make install); done;
