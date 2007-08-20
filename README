@@ -26,7 +26,7 @@ servers, as well as server communication via RPC.
 
 The default installation path is /usr/local/xadp. To change this, edit the
 Makefile.inc file and set the BUILDPATH variable to the appropriate
-directory. Make sure you have rights to write to the parent directory.
+directory. *** Make sure you have rights to write to the parent directory.
 The following command will build all bundled software:
 
     % make install
