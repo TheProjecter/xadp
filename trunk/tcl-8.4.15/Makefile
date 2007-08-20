@@ -20,7 +20,7 @@ build:  configure
 	rm -f install
 	touch build
 
-install: unpack configure build
+install: build
 	(cd $(PACKAGE)/unix ; make install)
 	(cd $(PLATFORMROOT) ; ln -s $(PACKAGE) tcl)
 	-(cd $(PLATFORMROOT)/tcl/bin ; rm tclsh ; ln -s tclsh8.4 tclsh)

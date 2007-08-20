@@ -20,7 +20,7 @@ build:  configure
 	rm -f install
 	touch build
 
-install: unpack configure build
+install: build
 	(cd $(PACKAGE) ; make install)
 	(cd $(PLATFORMROOT) ; ln -s $(PACKAGE) curl)
 	touch install
