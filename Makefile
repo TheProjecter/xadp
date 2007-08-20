@@ -1,12 +1,12 @@
 include Makefile.inc
 
-BUNDLES = tcl-8.4.15 aolserver-head curl-7.16.2 tclcurl-7.16.2 tdom-0.8.1 tcllib-1.9 mysql-5.0.37 nsmysql-1.0.0
+BUNDLES = tcl-8.4.15 aolserver-head curl-7.16.4 tclcurl-7.16.4 tdom-0.8.1 tcllib-1.9 mysql-5.0.37 nsmysql-1.0.0
 
 LIBS = nsrpc-1.0.0
 
 install: installbundles installlibs installfiles
 clean: cleanbundles cleanlibs cleanfiles
-uninstall: uninstallbundles uninstalllibs uninstallfiles
+uninstall: uninstallfiles uninstalllibs uninstallbundles
 
 installbundles:
 	@for DIR in $(BUNDLES); do (cd $$DIR ; make install); done;

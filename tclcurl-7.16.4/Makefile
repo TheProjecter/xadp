@@ -1,8 +1,8 @@
 include ../Makefile.inc
 
-TARGZFILE = TclCurl-7.16.2.tar.gz
-UNPACKDIR = TclCurl-7.16.2
-PACKAGE = tclcurl-7.16.2
+TARGZFILE = TclCurl-7.16.4.tar.gz
+UNPACKDIR = TclCurl-7.16.4
+PACKAGE = tclcurl-7.16.4
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 CURLDIR = $(PLATFORMROOT)/curl
 
