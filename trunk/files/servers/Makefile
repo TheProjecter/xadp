@@ -1,7 +1,7 @@
 include ../../Makefile.inc
 
 install:
-	mkdir -p $(BUILDROOT)/servers
+	mkdir -p $(PREFIX)/servers
 	touch install
 
 clean:

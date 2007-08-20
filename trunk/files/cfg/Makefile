@@ -1,16 +1,12 @@
 include ../../Makefile.inc
 
-all:
-	@echo "BUILDPATH = $(BUILDPATH)"
-	@echo "make |install|clean|uninstall
-
 install:
-	mkdir -p $(BUILDROOT)/cfg
-	cp common.cfg $(BUILDROOT)/cfg
+	mkdir -p $(PREFIX)/cfg
+	cp common.cfg $(PREFIX)/cfg
 	touch install
 
 clean:
 	rm -rf install
 
 uninstall: clean
-	rm -f $(BUILDROOT)/cfg/common.cfg
+	rm -f $(PREFIX)/cfg/common.cfg

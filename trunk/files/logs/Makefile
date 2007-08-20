@@ -1,7 +1,7 @@
 include ../../Makefile.inc
 
 install:
-	mkdir -p $(BUILDROOT)/logs
+	mkdir -p $(PREFIX)/logs
 	touch install
 
 clean:
