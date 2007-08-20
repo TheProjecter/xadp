@@ -1,9 +1,9 @@
 include ../Makefile.inc
 
 install:
-	mkdir -p ${BUILDROOT}/lib/nsrpc-1.0.0
+	mkdir -p ${PREFIX}/lib/nsrpc-1.0.0
 	echo "pkg_mkIndex -verbose . *.tcl" | ${PLATFORMROOT}/tcl/bin/tclsh
-	cp *.tcl ${BUILDROOT}/lib/nsrpc-1.0.0
+	cp *.tcl ${PREFIX}/lib/nsrpc-1.0.0
 	touch install
 
 clean:
@@ -11,4 +11,4 @@ clean:
 	rm -f install
 
 uninstall: clean
-	rm -rf ${BUILDROOT}/lib/nsrpc-1.0.0
+	rm -rf ${PREFIX}/lib/nsrpc-1.0.0

@@ -1,17 +1,11 @@
 include ../Makefile.inc
 
-TARGZFILE = tcl8.4.15rc3-src.tar.gz
-UNPACKDIR = tcl8.4.15
+TARGZFILE = tcl-8.4.15.tar.gz
 PACKAGE = tcl-8.4.15
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 
-all:
-	@echo "BUILDPATH = $(BUILDPATH)"
-	@echo "make |unpack|configure|build|install|clean|remove"
-
 unpack:
 	tar -xvzf $(TARGZFILE)
-	mv $(UNPACKDIR) $(PACKAGE)
 	rm -f configure build install
 	touch unpack
 

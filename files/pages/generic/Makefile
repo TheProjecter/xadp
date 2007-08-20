@@ -1,8 +1,8 @@
 include ../../../Makefile.inc
 
 install:
-	mkdir -p $(BUILDROOT)/pages/generic
-	cp index.adp $(BUILDROOT)/pages/generic
+	mkdir -p $(PREFIX)/pages/generic
+	cp index.adp $(PREFIX)/pages/generic
 	touch install
 
 clean:
