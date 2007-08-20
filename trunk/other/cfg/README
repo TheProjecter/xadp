@@ -1,4 +1,0 @@
-common.cfg holds parameters that are the same across server types.  Each
-directory holds config files specific to that server type. common.cfg will
-FIRST source all the server-specific files.  This is done so server-specific
-configurations can override common configurations.

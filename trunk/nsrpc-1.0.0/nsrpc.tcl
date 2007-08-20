@@ -16,7 +16,7 @@
 #
 ################################################################################
 package require TclCurl
-package provide nsrpc 1.0
+package provide nsrpc 1.0.0
 namespace eval nsrpc {}
 
 
