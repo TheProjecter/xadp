@@ -9,3 +9,4 @@ clean:
 	rm -f install
 
 uninstall: clean
+	rm -f $(PREFIX)/pages/generic/index.adp
