@@ -36,6 +36,7 @@ lappend config "&nbsp;" "&nbsp;"
 lappend config "Tcl Version" [info tclversion]
 lappend config "Tcl Patch Level" [info patchlevel]
 lappend config "&nbsp;" "&nbsp;"
+lappend config "Server Name" [ns_info server]
 lappend config "Home Directory" [ns_info home]
 lappend config "Page Root" [ns_info pageroot]
 lappend config "Tcl Library" [ns_info tcllib]
@@ -46,7 +47,7 @@ lappend config "Tcl Library" [ns_info tcllib]
 
 <html>
 <head>
-<title>Welcome to AOLserver</title> 
+<title>Welcome to xADP</title> 
 <style type="text/css">
     body { 
         font-family: verdana, arial; 
@@ -114,6 +115,7 @@ lappend config "Tcl Library" [ns_info tcllib]
 
 <div id="nav">
 <ul>
+    <li><a href="http://code.google.com/p/xadp/">xADP Home</a></li>
     <li><a href="http://www.aolserver.com/">AOLserver.com</a></li>
     <li><a href="http://panoptic.com/wiki/aolserver/">Wiki</a></li>
     <li><a href="http://panoptic.com/wiki/aolserver/Tcl%20API">Tcl API</a></li>
@@ -123,11 +125,11 @@ lappend config "Tcl Library" [ns_info tcllib]
 </ul>
 </div>
 
-<h1>AOLserver <%=[ns_info version]%></h1> 
+<h1>xADP 1.0.0</h1>
 
-<p>Congratulations, you have successfully installed AOLserver <%=[ns_info version]%>!</p> 
+<p>Congratulations, you have successfully installed xADP 1.0.0</p>
 
-<h2>Configuration</h2>
+<h2>AOLserver Configuration</h2>
 
 <table cellpadding="3" cellspacing="0">
 <tr>
