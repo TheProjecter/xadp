@@ -321,7 +321,7 @@ proc ::nsrpc::getDefaultTimeout {} {
 #         [list ns_log notice "hello world"]
 #     responseArrayName: The name of the response array.
 #     args (optional - as flags): 
-#         -timeoutms: in whole seconds.
+#         -timeoutms: timeout in milliseconds.
 #         -filesAgf: The files to send: See usage below.
 #
 # Results:
@@ -424,7 +424,7 @@ proc ::nsrpc::send {server command responseArrayName {args ""}} {
 #     command: The command with args in Tcl list format:
 #         [list ns_log notice "hello world"]
 #     args (optional - as flags):
-#         -timeout: in whole seconds.
+#         -timeoutms: Timeout in milliseconds.
 #         -filesAgf: The files to send: See usage below.
 #
 # Results:
