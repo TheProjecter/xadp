@@ -4,10 +4,6 @@ TARGZFILE = mysql-5.0.37.tar.gz
 PACKAGE = mysql-5.0.37
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 
-all:
-	@echo "BUILDPATH = $(BUILDPATH)"
-	@echo "make |unpack|configure|build|install|clean|remove"
-
 unpack:
 	tar -xvzf $(TARGZFILE)
 	rm -f configure build install
@@ -24,7 +20,7 @@ build:  configure
 	rm -f install
 	touch build
 
-install: unpack configure build
+install: build
 	(cd $(PACKAGE) ; make install)
 	(cd $(PLATFORMROOT) ; ln -s $(PACKAGE) mysql)
 	touch install

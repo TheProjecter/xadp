@@ -4,10 +4,6 @@ TARGZFILE = tcllib-1.9.tar.gz
 PACKAGE = tcllib-1.9
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 
-all:
-	@echo "BUILDPATH = $(BUILDPATH)"
-	@echo "make |unpack|configure|build|install|clean|remove"
-
 unpack:
 	tar -xvzf $(TARGZFILE)
 	rm -f configure build install
@@ -23,7 +19,7 @@ build:  configure
 	rm -f install
 	touch build
 
-install: unpack configure build
+install: build
 	(cd $(PACKAGE) ; make install)
 	(cd $(PLATFORMROOT) ; ln -s $(PACKAGE) tcllib)
 	touch install
