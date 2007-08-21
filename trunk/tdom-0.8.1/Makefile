@@ -6,10 +6,6 @@ PACKAGE = tdom-0.8.1
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 TCLPATH = $(PLATFORMROOT)/tcl
 
-all:
-	@echo "BUILDPATH = $(BUILDPATH)"
-	@echo "make |unpack|configure|build|install|clean|remove"
-
 unpack:
 	tar -xvzf $(TARGZFILE)
 	mv $(UNPACKDIR) $(PACKAGE)
@@ -27,7 +23,7 @@ build:  configure
 	rm -f install
 	touch build
 
-install: unpack configure build
+install: build
 	(cd $(PACKAGE)/unix ; make install)
 	(cd $(PLATFORMROOT) ; ln -s $(PACKAGE) tdom)
 	touch install

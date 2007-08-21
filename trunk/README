@@ -217,7 +217,7 @@ It it also has params common to all server types. It sources the files in the
 type-specific directory first so they can override any common settings.
 
 Since config params are returned using a ns_set, the first param set is the 
-one that is returned by the ns_config API and usually the one that is used by 
+one returned by the ns_config API and usually the one that is used by 
 the server at start up. By sourcing the type-specific cfg files first, their 
 params take precedence over the same params set later by the common.cfg file. 
 This allows you to set a common param in the common.cfg file, but then 
