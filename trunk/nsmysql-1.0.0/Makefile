@@ -5,12 +5,12 @@ PACKAGE = nsmysql-1.0.0
 AOLSERVERPATH = $(PLATFORMROOT)/aolserver
 MYSQLPATH = $(PLATFORMROOT)/mysql
 
-unpack:
+untar:
 	tar -xvzf $(TARGZFILE)
 	rm -f configure build install
-	touch unpack
+	touch untar
 
-configure: unpack
+configure: untar
 	rm -f build install
 	touch configure
 
@@ -31,4 +31,4 @@ uninstall:
 	rm -f $(AOLSERVERPATH)/lib/*nsmysql*
 	rm -f $(AOLSERVERPATH)/bin/*nsmysql*
 	rm -rf $(PACKAGE)
-	rm -f unpack configure build install
+	rm -f untar configure build install

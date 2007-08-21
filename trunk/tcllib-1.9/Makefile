@@ -4,12 +4,12 @@ TARGZFILE = tcllib-1.9.tar.gz
 PACKAGE = tcllib-1.9
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 
-unpack:
+untar:
 	tar -xvzf $(TARGZFILE)
 	rm -f configure build install
-	touch unpack
+	touch untar
 
-configure: unpack
+configure: untar
 	-(cd $(PACKAGE) ; make distclean)
 	(cd $(PACKAGE) ; ./configure --prefix=$(BUILDPATH) --exec-prefix=$(BUILDPATH))
 	rm -f build install
@@ -32,4 +32,4 @@ uninstall:
 	rm -f $(PLATFORMROOT)/tcllib
 	rm -rf $(PLATFORMROOT)/$(PACKAGE)
 	rm -rf $(PACKAGE)
-	rm -f unpack configure build install
+	rm -f untar configure build install

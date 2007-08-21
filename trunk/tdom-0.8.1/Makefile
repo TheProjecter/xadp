@@ -6,13 +6,13 @@ PACKAGE = tdom-0.8.1
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 TCLPATH = $(PLATFORMROOT)/tcl
 
-unpack:
+untar:
 	tar -xvzf $(TARGZFILE)
 	mv $(UNPACKDIR) $(PACKAGE)
 	rm -f configure build install
-	touch unpack
+	touch untar
 
-configure: unpack
+configure: untar
 	-(cd $(PACKAGE)/unix ; make distclean)
 	(cd $(PACKAGE)/unix ; ../configure --prefix=$(BUILDPATH) --exec-prefix=$(BUILDPATH) --enable-threads --enable-shared --enable-symbols --with-tcl=$(TCLPATH)/lib --disable-tdomalloc)
 	rm -f build install
@@ -36,4 +36,4 @@ uninstall:
 	rm -f $(PLATFORMROOT)/tdom
 	rm -rf $(BUILDPATH)
 	rm -rf $(PACKAGE)
-	rm -f unpack configure build install
+	rm -f untar configure build install

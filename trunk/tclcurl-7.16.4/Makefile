@@ -6,13 +6,13 @@ PACKAGE = tclcurl-7.16.4
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 CURLDIR = $(PLATFORMROOT)/curl
 
-unpack:
+untar:
 	tar -xvzf $(TARGZFILE)
 	mv $(UNPACKDIR) $(PACKAGE)
 	rm -f configure build install
-	touch unpack
+	touch untar
 
-configure: unpack
+configure: untar
 	-(cd $(UNPACKDIR) ; make distclean)
 	(cd $(UNPACKDIR) ; ./configure --prefix=$(BUILDPATH) --exec-prefix=$(BUILDPATH) --enable-threads --enable-shared --enable-symbols --with-curlprefix=$(CURLDIR))
 	rm -f build install
@@ -36,4 +36,4 @@ uninstall:
 	rm -f $(PLATFORMROOT)/tclcurl
 	rm -rf $(BUILDPATH)
 	rm -rf $(PACKAGE)
-	rm -f unpack configure build install
+	rm -f untar configure build install

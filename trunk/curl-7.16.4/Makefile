@@ -4,12 +4,12 @@ TARGZFILE = curl-7.16.4.tar.gz
 PACKAGE = curl-7.16.4
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 
-unpack:
+untar:
 	tar -xvzf $(TARGZFILE)
 	rm -f configure build install
-	touch unpack
+	touch untar
 
-configure: unpack
+configure: untar
 	-(cd $(PACKAGE) ; make distclean)
 	(cd $(PACKAGE) ; ./configure --enable-threads --enable-shared --enable-symbols --prefix=$(BUILDPATH))
 	rm -f build install
@@ -33,4 +33,4 @@ uninstall:
 	rm -f $(PLATFORMROOT)/curl
 	rm -rf $(BUILDPATH)
 	rm -rf $(PACKAGE)
-	rm -f unpack configure build install
+	rm -f untar configure build install
