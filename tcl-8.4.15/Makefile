@@ -4,12 +4,12 @@ TARGZFILE = tcl-8.4.15.tar.gz
 PACKAGE = tcl-8.4.15
 BUILDPATH = $(PLATFORMROOT)/$(PACKAGE)
 
-unpack:
+untar:
 	tar -xvzf $(TARGZFILE)
 	rm -f configure build install
-	touch unpack
+	touch untar
 
-configure: unpack
+configure: untar
 	-(cd $(PACKAGE)/unix ; make distclean)
 	(cd $(PACKAGE)/unix ; ./configure --prefix=$(BUILDPATH) --exec-prefix=$(BUILDPATH) --enable-threads --enable-shared --enable-symbols)
 	rm -f build install
@@ -34,4 +34,4 @@ uninstall:
 	rm -f $(PLATFORMROOT)/tcl
 	rm -rf $(BUILDPATH)
 	rm -rf $(PACKAGE)
-	rm -f unpack configure build install
+	rm -f untar configure build install
