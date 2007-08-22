@@ -59,8 +59,8 @@ Otherwise continue with these installation instructions:
 
 That's it. You are now ready to start MySQL:
 
-    % bin/mysqld_safe &
-    % bin/mysql
+    % share/mysql/mysql.server start
+    % share/mysql/mysql.server stop
 
 Be sure to secure your MySQL installation by changing the root password and 
 removing unwanted access. See the article "Securing the Initial MySQL Accounts"
@@ -70,9 +70,11 @@ on the MySQL dev site:
 
 You might also want to set the following environment variables and aliases.
 
-    export XADPPLATFORM=${XADP}/platform/<your platform>/
-    alias start-mysql='${XADPPLATFORM}/mysql/bin/mysqld_safe --user=<user> &'
     export PATH=${PATH}:${XADPPLATFORM}/mysql/bin
+    export XADPPLATFORM=${XADP}/platform/<your platform>
+
+    alias start-mysql='${XADPPLATFORM}/mysql/share/mysql/mysql.server start'
+    alias stop-mysql='${XADPPLATFORM}/mysql/share/mysql/mysql.server stop'
 
 4. The Filesystem
 -----------------
