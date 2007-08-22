@@ -5,11 +5,12 @@ Contents
 --------
     1. Introduction
     2. Compiling and Installing xADP
-    3. The Filesystem
-    4. Starting and Stopping Servers
-    5. Creating New Server Types
-    6. Server Configuration Files
-    7. Using Tcl Packages
+    3. Setting up MySql
+    4. The Filesystem
+    5. Starting and Stopping Servers
+    6. Creating New Server Types
+    7. Server Configuration Files
+    8. Using Tcl Packages
 
 1. Introduction
 ---------------
@@ -38,7 +39,36 @@ where you installed xADP as the value for the XADP variable:
     alias start-aolserver='${XADP}/bin/startserver'
     alias stop-aolserver='${XADP}/bin/stopserver'
 
-3. The Filesystem
+3. Setting up MySql
+-------------------
+
+If you already have an installation of MySQL running you can skip this step. 
+You do not need to use the bundled installation.
+
+Before you can use the bundled MySQL installation you first need to set up the
+grant tables and install the test db. MySQL is set up to run as the user that
+installed xADP. If you would prefer to run MySQL as a diifferent user, follow
+the set up instructions at the MySQL web site:
+
+    http://dev.mysql.com/doc/refman/5.0/en/quick-install.html
+
+Otherwise continue with these installation instructions:
+
+    % cd ${XADP}/platform/<your platform>/mysql
+    % bin/mysql_install_db --force
+
+That's it. You are now ready to start MySQL:
+
+    % bin/mysqld_safe &
+    % bin/mysql
+
+Be sure to secure your MySQL installation by changing the root password and 
+removing unwanted access. See the article "Securing the Initial MySQL Accounts"
+on the MySQL dev site:
+
+    http://dev.mysql.com/doc/refman/5.0/en/default-privileges.html
+
+4. The Filesystem
 -----------------
 
     % cd $XADP
@@ -146,7 +176,7 @@ To stop the server running on port 8080:
     Shutdown pending...
     Shutdown complete.
 
-5. Creating New Server Types
+6. Creating New Server Types
 ----------------------------
 
 You do not need to do anything special to create a new server type. Just
@@ -197,7 +227,7 @@ To stop the 'frontend' server on port '8201':
     Shutdown pending...
     Shutdown complete.
 
-6. Server Configuration Files
+7. Server Configuration Files
 -----------------------------
 
 Take a look at the cfg dir:
@@ -227,7 +257,7 @@ It also allows you to specify different Tcl packages to load at startup for the
 different server types. See the section 'Using Tcl Packages' for information 
 on loading Tcl packages at startup.
 
-7. Using Tcl Packages
+8. Using Tcl Packages
 ---------------------
 
 It is encouraged to use Tcl packages with xAPD. Place Tcl packages in the 
