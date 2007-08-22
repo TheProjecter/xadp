@@ -6,7 +6,7 @@ Contents
     1. Introduction
     2. Compiling and Installing xADP
     3. Setting up MySql
-    4. The Filesystem
+    4. The xADP Directory Structure
     5. Starting and Stopping Servers
     6. Creating New Server Types
     7. Server Configuration Files
@@ -77,8 +77,8 @@ You might also want to set the following environment variables and aliases.
     alias start-mysql='${XADPPLATFORM}/mysql/share/mysql/mysql.server start'
     alias stop-mysql='${XADPPLATFORM}/mysql/share/mysql/mysql.server stop'
 
-4. The Filesystem
------------------
+4. The xADP Directory Structure
+-------------------------------
 
     % cd $XADP
     % ls -l
