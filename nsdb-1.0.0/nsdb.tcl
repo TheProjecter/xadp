@@ -37,12 +37,6 @@
 # the rollback and realease of the handle before thowing the original
 # error.
 #
-# You should use the folloiwng procedures where possible as they provide
-# an ease-to-use API that implemtends the above best proctice:
-#
-#     ::nsdb::doSelect
-#     ::nsdb::doDml
-#
 ################################################################################
 package provide nsdb 1.0.0
 namespace eval ::nsdb {}
@@ -85,8 +79,42 @@ proc ::nsdb::doSelect {poolName sql} {
     return $result
 }
 
+
+################################################################################
+#
+# ::nsdb::doDml
+#
+#    Used to do DML statements against a configured db pool.
+#
+# Arguments:
+#     poolName: The name of the pool as set in the nsdb.so config sections.
+#     dml: The dml to execute: UPDATE foo SET name='Michael' WHERE id=1
+#
+# Results:
+#     Gets a handle from the specified pool, executes the dml, and returns
+#     the results. The handle is cleanly and safely released.
+#
+# See Also:
+#     ::nsdb::getHandle
+#     ::nsdb::dml
+#     ::nsdb::releaseHandle
+#
+################################################################################
 proc ::nsdb::doDml {poolName dml} {
-    # TO DO
+    if {[catch {
+        ::nsdb::getHandle $poolName dbHandle
+        set result [::nsdb::dml $dbHandle $dml]
+        ::nsdb::releaseHandle $dbHandle
+    } error]} {
+        catch {::nsdb::releaseHandle $dbHandle}
+        error $error
+    }
+
+    if {![info exists result]} {
+        return ""
+    }
+
+    return $result
 }
 
 
@@ -380,8 +408,4 @@ proc ::nsdb::getRows {dbHandle sql resultListVarName} {
     }
 
     return [llength $resultList]
-}
-
-proc ::nsdb::doDml {poolName dml} {
-    # TO DO
 }
