@@ -2,18 +2,20 @@
 #
 # db.tcl --
 #
-#     This package provides an API that wraps the ns_db API for ease of use.
-#     The nsdb.so is required.
+# This package provides an API that wraps the ns_db API for ease of use.
+# The nsdb.so is required.
 #
 # $Id:$
 #
-# Best Practices:
+# For the more simple SQL and DML statements the following procedures should 
+# be used. They implement the best procatices as shown below:
 #
-#     It is important to catch the complete operation in order to rollback the
-#     transaction and release the handle. This example then explicitly thows
-#     the error:
+#     ::nsdb::doSelect
+#     ::nsdb::doDml
 #
-#     Example 1:
+# Best Prasctices: When using the nsdb Tcl API, It is important to catch the 
+# complete operation in order to rollback the transaction and release the 
+# handle:
 #
 #     if {[catch {
 #         ::nsdb::getHandle defaultPool dbHandle
@@ -31,20 +33,15 @@
 #         error $err
 #     }
 #
-#     Since we do not know where in the operation the error was - we catch both
-#     the rollback and realease of the handle before thowing the original
-#     error.
+# Since we do not know where in the operation the error was - we catch both
+# the rollback and realease of the handle before thowing the original
+# error.
 #
-#     Example 2:
+# You should use the folloiwng procedures where possible as they provide
+# and east-to-use API that implemtends the above best proctices:
 #
-#     if {[catch {
-#         ::nsdb::getHandle defaultPool dbHandle
-#         ::nsdb::dml $dbHandle "UPDATE...."
-#         ::nsdb::releaseHandle $dbHandle
-#     } err]} {
-#         catch {::nsdb::releaseHandle $dbHandle}
-#         error $err
-#     }
+#     ::nsdb::doSelect
+#     ::nsdb::doDml
 #
 ################################################################################
 package provide nsdb 1.0.0
