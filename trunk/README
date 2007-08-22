@@ -68,6 +68,12 @@ on the MySQL dev site:
 
     http://dev.mysql.com/doc/refman/5.0/en/default-privileges.html
 
+You might also want to set the following environment variables and aliases.
+
+    export XADPPLATFORM=${XADP}/platform/<your platform>/
+    alias start-mysql='${XADPPLATFORM}/mysql/bin/mysqld_safe --user=<user> &'
+    export PATH=${PATH}:${XADPPLATFORM}/mysql/bin
+
 4. The Filesystem
 -----------------
 
