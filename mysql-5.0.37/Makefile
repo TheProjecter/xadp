@@ -11,7 +11,7 @@ untar:
 
 configure: untar
 	-(cd $(PACKAGE) ; make distclean)
-	(cd $(PACKAGE) ; ./configure --enable-shared --enable-thread-safe-client --prefix=$(BUILDPATH) --exec-prefix=$(BUILDPATH))
+	(cd $(PACKAGE) ; ./configure --enable-shared --enable-thread-safe-client --prefix=$(BUILDPATH) --exec-prefix=$(BUILDPATH) --with-charset=utf8)
 	rm -f build install
 	touch configure
 
