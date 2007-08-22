@@ -49,6 +49,48 @@ namespace eval ::nsdb {}
 
 
 ################################################################################
+# 
+# ::nsdb::doSelect
+#
+#    Used to do SELECT statements against a configured db pool.
+#
+# Arguments:
+#     poolName: The name of the pool as set in the nsdb.so config sections.
+#     sql: The sql to execute: E.g., SELECT * FROM foo WHERE id=1.
+#
+# Results:
+#     Gets a handle from the specified pool, executes the sql, and returns 
+#     the results. The handle is cleanly and safely released.
+#
+# See Also:
+#     ::nsdb::getHandle
+#     ::nsdb::getRows
+#     ::nsdb::releaseHandle
+#
+################################################################################
+proc ::nsdb::doSelect {poolName sql} {
+    if {[catch {
+        ::nsdb::getHandle $poolName dbHandle
+        ::nsdb::getRows $dbHandle $sql result
+        ::nsdb::releaseHandle $dbHandle
+    } error]} {
+        catch {::nsdb::releaseHandle $dbHandle}
+        error $error
+    }
+
+    if {![info exists result]} {
+        return ""
+    }
+
+    return $result
+}
+
+proc ::nsdb::doDml {poolName dml} {
+    # TO DO
+}
+
+
+################################################################################
 #
 # ::nsdb::getHandle --
 #
@@ -338,23 +380,6 @@ proc ::nsdb::getRows {dbHandle sql resultListVarName} {
     }
 
     return [llength $resultList]
-}
-
-proc ::nsdb::doSelect {poolName sql} {
-    if {[catch {
-        ::nsdb::getHandle $poolName dbHandle
-        ::nsdb::getRows $dbHandle $sql result
-        ::nsdb::releaseHandle $dbHandle
-    } error]} {
-        catch {::nsdb::releaseHandle $dbHandle}
-        error $error
-    }
-
-    if {![info exists result]} {
-        return ""
-    }
-
-    return $result
 }
 
 proc ::nsdb::doDml {poolName dml} {
