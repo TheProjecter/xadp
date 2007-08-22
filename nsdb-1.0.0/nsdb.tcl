@@ -1,14 +1,14 @@
 ################################################################################
 #
-# db.tcl --
+# nsdb.tcl --
 #
-# This package provides an API that wraps the ns_db API for ease of use.
+# This package provides a Tcl API that wraps the ns_db API for ease of use.
 # The nsdb.so is required.
 #
 # $Id:$
 #
 # For the more simple SQL and DML statements the following procedures should 
-# be used. They implement the best procatices as shown below:
+# be used. They implement the best procatices shown below:
 #
 #     ::nsdb::doSelect
 #     ::nsdb::doDml
@@ -38,7 +38,7 @@
 # error.
 #
 # You should use the folloiwng procedures where possible as they provide
-# and east-to-use API that implemtends the above best proctices:
+# an ease-to-use API that implemtends the above best proctice:
 #
 #     ::nsdb::doSelect
 #     ::nsdb::doDml
@@ -358,5 +358,5 @@ proc ::nsdb::doSelect {poolName sql} {
 }
 
 proc ::nsdb::doDml {poolName dml} {
-
+    # TO DO
 }
