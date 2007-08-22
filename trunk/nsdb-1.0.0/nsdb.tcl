@@ -23,7 +23,7 @@
 #         ::nsdb::dml $dbHandle "INSERT INTO table1... "
 #         ::nsdb::getLastInsertId $dbHandle id
 #         ::nsdb::dml $dbHandle "INSERT INTO table2... WHERE ID = ${id}"
-#         ::nsdb::startCommitTransaction $dbHandle
+#         ::nsdb::commitTransaction $dbHandle
 #         ::nsdb::releaseHandle $dbHandle
 #     } err]} {
 #         catch {
