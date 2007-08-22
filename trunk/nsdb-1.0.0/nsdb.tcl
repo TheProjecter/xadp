@@ -26,16 +26,14 @@
 #         ::nsdb::commitTransaction $dbHandle
 #         ::nsdb::releaseHandle $dbHandle
 #     } err]} {
-#         catch {
-#             ::nsdb::rollbackTransaction $dbHandle
-#             ::nsdb::releaseHandle $dbHandle
-#         }
+#         catch {::nsdb::rollbackTransaction $dbHandle}
+#         catch {::nsdb::releaseHandle $dbHandle}
 #         error $err
 #     }
 #
-# Since we do not know where in the operation the error was - we catch both
-# the rollback and realease of the handle before thowing the original
-# error.
+# Since we do not know where in the operation the error was - we catch
+# the rollback and realease of the handle separately before thowing the 
+# original error.
 #
 ################################################################################
 package provide nsdb 1.0.0
