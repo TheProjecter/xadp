@@ -58,24 +58,33 @@ Otherwise continue with these installation instructions:
     % cd ${XADP}/platform/<your platform>/mysql
     % bin/mysql_install_db --force
 
-That's it. You are now ready to start MySQL:
+That's it. You are now ready to start MySQL. Be sure to use the correct user
+name:
 
-    % share/mysql/mysql.server start
-    % share/mysql/mysql.server stop
+    % bin/mysqld_safe --user=<username>  &
+    % bin/mysql
 
+Exit out of the mysql interface by typing 'exit' then pressing enter. To stop 
+the MySQL server you need to specify a db user that has 'shutdown' privileges. 
+The following example uses the root user. The password for the root user is 
+currently blank, so hit enter when prompted:
+
+    % bin/mysqladmin shutdown -u root -p
+    
 Be sure to secure your MySQL installation by changing the root password and 
 removing unwanted access. See the article "Securing the Initial MySQL Accounts"
 on the MySQL dev site:
 
     http://dev.mysql.com/doc/refman/5.0/en/default-privileges.html
 
-You might also want to set the following environment variables and aliases.
+You might also want to set the following environment variables and aliases. Be
+sure to use the correct user name:
 
     export PATH=${PATH}:${XADPPLATFORM}/mysql/bin
     export XADPPLATFORM=${XADP}/platform/<your platform>
 
-    alias start-mysql='${XADPPLATFORM}/mysql/share/mysql/mysql.server start'
-    alias stop-mysql='${XADPPLATFORM}/mysql/share/mysql/mysql.server stop'
+    alias start-mysql='$XADPPLATFORM/mysql/bin/mysqld_safe --user=<username> &'
+    alias stop-mysql='$XADPPLATFORM/mysql/bin/mysqladmin shutdown -u root -p'
 
 4. The xADP Directory Structure
 -------------------------------
