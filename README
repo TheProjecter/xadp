@@ -5,7 +5,7 @@ Contents
 --------
     1. Introduction
     2. Compiling and Installing xADP
-    3. Setting up MySql
+    3. Setting up MySQL
     4. The xADP Directory Structure
     5. Starting and Stopping Servers
     6. Creating New Server Types
@@ -16,7 +16,7 @@ Contents
 ---------------
 
 The X AOLserver Dynamic Platform (xADP) is a "batteries included" distribution 
-for AOLserver. It includes, but is not limited to, Tcl, AOLserver, MySql,
+for AOLserver. It includes, but is not limited to, Tcl, AOLserver, MySQL,
 cURL, TclCurl, tDOM, Tcllib, and nsrpc. Using a single Makefile to build and
 link these features together, xADP offers an out-of-the-box experience for 
 AOLserver. xADP also provides simple mechanisms for starting and stopping
@@ -40,7 +40,7 @@ where you installed xADP as the value for the XADP variable:
     alias start-aolserver='${XADP}/bin/startserver'
     alias stop-aolserver='${XADP}/bin/stopserver'
 
-3. Setting up MySql
+3. Setting up MySQL
 -------------------
 
 If you already have an installation of MySQL running you can skip this step. 
