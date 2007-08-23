@@ -62,7 +62,7 @@ Otherwise continue with these installation instructions:
 That's it. You are now ready to start MySQL. Be sure to use the correct user
 name:
 
-    % bin/mysqld_safe --user=<username>  &
+    % bin/mysqld_safe --user=<username> &
     % bin/mysql
 
 Exit out of the mysql interface by typing 'exit' then pressing enter. To stop 
