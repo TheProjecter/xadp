@@ -5,12 +5,12 @@ Contents
 --------
     1. Introduction
     2. Compiling and Installing xADP
-    3. Setting up MySQL
-    4. The xADP Directory Structure
-    5. Starting and Stopping Servers
-    6. Creating New Server Types
-    7. Server Configuration Files
-    8. Using Tcl Packages
+    3. The xADP Directory Structure
+    4. Starting and Stopping Servers
+    5. Creating New Server Types
+    6. Server Configuration Files
+    7. Using Tcl Packages
+    8. Setting up MySQL
 
 1. Introduction
 ---------------
@@ -41,53 +41,7 @@ where you installed xADP as the value of the XADP variable:
     alias start-aolserver='${XADP}/bin/startserver'
     alias stop-aolserver='${XADP}/bin/stopserver'
 
-3. Setting up MySQL
--------------------
-
-If you already have an installation of MySQL running you can skip this step. 
-You do not need to use the bundled installation.
-
-Before you can use the bundled MySQL installation you first need to set up the
-grant tables and install the test db. MySQL is set up to run as the user that
-installed xADP. If you would prefer to run MySQL as a diifferent user, follow
-the set up instructions at the MySQL web site:
-
-    http://dev.mysql.com/doc/refman/5.0/en/quick-install.html
-
-Otherwise continue with these installation instructions:
-
-    % cd ${XADP}/platform/<your platform>/mysql
-    % bin/mysql_install_db --force
-
-That's it. You are now ready to start MySQL. Be sure to use the correct user
-name:
-
-    % bin/mysqld_safe --user=<username> &
-    % bin/mysql
-
-Exit out of the mysql interface by typing 'exit' then pressing enter. To stop 
-the MySQL server you need to specify a db user that has 'shutdown' privileges. 
-The following example uses the root user. The password for the root user is 
-currently blank, so hit enter when prompted:
-
-    % bin/mysqladmin shutdown -u root -p
-    
-Be sure to secure your MySQL installation by changing the root password and 
-removing unwanted access. See the article "Securing the Initial MySQL Accounts"
-on the MySQL dev site:
-
-    http://dev.mysql.com/doc/refman/5.0/en/default-privileges.html
-
-You might also want to set the following environment variables and aliases. Be
-sure to use the correct user name:
-
-    export PATH=${PATH}:${XADPPLATFORM}/mysql/bin
-    export XADPPLATFORM=${XADP}/platform/<your platform>
-
-    alias start-mysql='$XADPPLATFORM/mysql/bin/mysqld_safe --user=<username> &'
-    alias stop-mysql='$XADPPLATFORM/mysql/bin/mysqladmin shutdown -u root -p'
-
-4. The xADP Directory Structure
+3. The xADP Directory Structure
 -------------------------------
 
     % cd $XADP
@@ -195,7 +149,7 @@ To stop the server running on port 8080:
     Shutdown pending...
     Shutdown complete.
 
-6. Creating New Server Types
+5. Creating New Server Types
 ----------------------------
 
 You do not need to do anything special to create a new server type. Just
@@ -246,7 +200,7 @@ To stop the 'frontend' server on port '8201':
     Shutdown pending...
     Shutdown complete.
 
-7. Server Configuration Files
+6. Server Configuration Files
 -----------------------------
 
 Take a look at the cfg dir:
@@ -276,7 +230,7 @@ It also allows you to specify different Tcl packages to load at startup for the
 different server types. See the section 'Using Tcl Packages' for information 
 on loading Tcl packages at startup.
 
-8. Using Tcl Packages
+7. Using Tcl Packages
 ---------------------
 
 It is encouraged to use Tcl packages with xAPD. Place Tcl packages in the 
@@ -328,3 +282,49 @@ nspostinit procs if applicable. See the packages.tcl file that comes with
 AOLserver:
 
         $XADP/platform/<Your platform>/aolserver/modules/tcl/packages.tcl
+
+8. Setting up MySQL
+-------------------
+
+If you already have an installation of MySQL running you can skip this step.
+You do not need to use the bundled installation.
+
+Before you can use the bundled MySQL installation you first need to set up the
+grant tables and install the test db. MySQL is set up to run as the user that
+installed xADP. If you would prefer to run MySQL as a diifferent user, follow
+the set up instructions at the MySQL web site:
+
+    http://dev.mysql.com/doc/refman/5.0/en/quick-install.html
+
+Otherwise continue with these installation instructions:
+
+    % cd ${XADP}/platform/<your platform>/mysql
+    % bin/mysql_install_db --force
+
+That's it. You are now ready to start MySQL. Be sure to use the correct user
+name:
+
+    % bin/mysqld_safe --user=<username> &
+    % bin/mysql
+
+Exit out of the mysql interface by typing 'exit' then pressing enter. To stop
+the MySQL server you need to specify a db user that has 'shutdown' privileges.
+The following example uses the root user. The password for the root user is
+currently blank, so hit enter when prompted:
+
+    % bin/mysqladmin shutdown -u root -p
+
+Be sure to secure your MySQL installation by changing the root password and
+removing unwanted access. See the article "Securing the Initial MySQL Accounts"
+on the MySQL dev site:
+
+    http://dev.mysql.com/doc/refman/5.0/en/default-privileges.html
+
+You might also want to set the following environment variables and aliases. Be
+sure to use the correct user name:
+
+    export PATH=${PATH}:${XADPPLATFORM}/mysql/bin
+    export XADPPLATFORM=${XADP}/platform/<your platform>
+
+    alias start-mysql='$XADPPLATFORM/mysql/bin/mysqld_safe --user=<username> &'
+    alias stop-mysql='$XADPPLATFORM/mysql/bin/mysqladmin shutdown -u root -p'
