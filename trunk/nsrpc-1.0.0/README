@@ -21,7 +21,8 @@ commands can be executed.
 2. Loading
 ----------
 
-Load the package using ns_ictl and then run the nsinit proc:
+Load the package using ns_ictl and then run the nsinit proc. The nsinit proc
+will start the RPC thread pool and register the RPC URI.
 
     server1:nscp 1> ns_ictl package require nsrpc
     1.0
@@ -38,7 +39,7 @@ to load packages. This feature is unreleased and subject to change:
         ns_param library /path/to/nsrpc-1.0.0
         ns_param require nsrpc
 
-At server start up, the library is added to the ::auto_path variable, the
+At server start up, the library param is added to the ::auto_path variable, the
 package is required using 'ns_ictl package require', and the nsinit proc is
 executed. This is done by the packages.tcl file that comes with AOLserver 
 which is sourced at server startup.
