@@ -270,7 +270,7 @@ proc ::nsdb::dml {dbHandle dml} {
 #
 # Results:
 #     Sets the value generated for an AUTO_INCREMENT column by the previous
-#     INSERT or UPDATE statement in $idVarName;  returns 1.
+#     INSERT or UPDATE statement in $idVarName; returns 1.
 #
 # Usage:
 #     It is important to catch the complete operation in order to rollback the
@@ -286,10 +286,8 @@ proc ::nsdb::dml {dbHandle dml} {
 #         ::nsdb::startCommitTransaction $dbHandle
 #         ::nsdb::releaseHandle $dbHandle
 #     } err]} 
-#         catch {
-#             ::nsdb::rollbackTransaction $dbHandle
-#             ::nsdb::releaseHandle $dbHandle
-#         }
+#         catch {::nsdb::rollbackTransaction $dbHandle}
+#         catch {::nsdb::releaseHandle $dbHandle}
 #         error $err
 #     }
 #     
