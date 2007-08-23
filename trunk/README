@@ -15,13 +15,13 @@ Contents
 1. Introduction
 ---------------
 
-The X AOLserver Dynamic Platform (xADP) is a "batteries included" distribution 
-for AOLserver. It includes, but is not limited to, Tcl, AOLserver, MySQL,
-cURL, TclCurl, tDOM, Tcllib, and nsrpc. Using a single Makefile to build and
-link these features together, xADP offers an out-of-the-box experience for 
-AOLserver. xADP also provides simple mechanisms for starting and stopping
-servers, server communication via RPC, and a nsdb Tcl package that wraps 
-the ns_db API for ease of use.
+The X AOLserver Dynamic Platform (xADP) is a "batteries included" distribution
+for AOLserver. It includes, but is not limited to, Tcl, AOLserver, MySQL, cURL,
+TclCurl, tDOM, Tcllib, nsrpc, and nsdb. Using a single Makefile to build and 
+link these features together, xADP offers an out-of-the-box experience for i
+AOLserver. xADP provides simple mechanisms for starting and stopping servers, 
+server communication via RPC, and a nsdb Tcl package that wraps the ns_db API 
+for ease of use.
 
 2. Compiling and Installing xADP
 --------------------------------
@@ -29,12 +29,13 @@ the ns_db API for ease of use.
 The default installation path is /usr/local/xadp. To change this, edit the
 Makefile.inc file and set the PREFIX variable to the appropriate
 directory. *** Make sure you have rights to write to the parent directory.
+
 The following command will build all bundled software:
 
     % make install
 
 Set the following environment variables and aliases. Make sure to use the path
-where you installed xADP as the value for the XADP variable:
+where you installed xADP as the value of the XADP variable:
 
     export XADP=/usr/local/xadp
     alias start-aolserver='${XADP}/bin/startserver'
