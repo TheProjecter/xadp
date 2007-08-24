@@ -31,8 +31,8 @@
 #         error $err
 #     }
 #
-# Since we do not know where in the operation the error was - we catch
-# the rollback and realease of the handle separately before thowing the 
+# Since we do not know where in the operation the error occurred, we catch
+# both the rollback and realease of the handle separately before thowing the 
 # original error.
 #
 ################################################################################
@@ -51,8 +51,8 @@ namespace eval ::nsdb {}
 #     sql: The sql to execute: E.g., SELECT * FROM foo WHERE id=1.
 #
 # Results:
-#     Gets a handle from the specified pool, executes the sql, and returns 
-#     the results. The handle is cleanly and safely released.
+#     Gets a handle from the specified pool, executes the sql, releases the
+#     handle cleanly and safely, then returns the result.
 #
 # See Also:
 #     ::nsdb::getHandle
@@ -89,8 +89,8 @@ proc ::nsdb::doSelect {poolName sql} {
 #     dml: The dml to execute: UPDATE foo SET name='Michael' WHERE id=1
 #
 # Results:
-#     Gets a handle from the specified pool, executes the dml, and returns
-#     the results. The handle is cleanly and safely released.
+#     Gets a handle from the specified pool, executes the dml, releases the
+#     handle cleanly and safely, then returns the result.
 #
 # See Also:
 #     ::nsdb::getHandle
