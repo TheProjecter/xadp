@@ -16,8 +16,8 @@ proc getFlagsAndDescriptions {} {
     lappend flagList {The type of server to start (default is 'generic').}
     lappend flagList -httpport {The port to use (default is '8080').}
     lappend flagList -nscpport {The port to use for the nscp module.}
-    lappend flagList -user {Run the server as <user>.}
-    lappend flagList -group {Run the server as <group>.}
+    lappend flagList -user {Run the server as this user.}
+    lappend flagList -group {Run the server as this group.}
     lappend flagList -foreground {Run the server in foreground mode.}
     lappend flagList -address 
     lappend flagList {The IP address to use (Default is [ns_info address]).}

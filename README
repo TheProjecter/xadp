@@ -83,14 +83,16 @@ execute these files directly or use the their environment aliases.
     % ./startserver -help
     Usage: startserver ?-flag value?...
 
-        -help            Prints this message
-        -servertype      The type of server (default is 'generic')
-        -httpport        port for incoming requests (default is '8080')
-        -nscpport        port for the nscp module
-        -user            The user to run the server as
-        -group           The group to run the server as
-        -foreground      Run in foreground mode
-        -version         Returns the nsd version info
+        -help         Print this message.
+        -servertype   The type of server to start (default is 'generic').
+        -httpport     The port to use (default is '8080').
+        -nscpport     The port to use for the nscp module.
+        -user         Run the server as this user.
+        -group        Run the server as this group.
+        -foreground   Run the server in foreground mode.
+        -address      The IP address to use (Default is [ns_info address]).
+        -hostname     The host name to use (Default is [ns_info hostname]).
+        -version      Return nsd version info.
 
 To start a 'generic' AOLserver on port '8080' in the foreground:
 
