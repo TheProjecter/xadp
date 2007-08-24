@@ -18,7 +18,7 @@ Contents
 The X AOLserver Dynamic Platform (xADP) is a "batteries included" distribution
 for AOLserver. It includes, but is not limited to, Tcl, AOLserver, MySQL, cURL,
 TclCurl, tDOM, Tcllib, nsrpc, and nsdb. Using a single Makefile to build and 
-link these features together, xADP offers an out-of-the-box experience for i
+link these features together, xADP offers an out-of-the-box experience for 
 AOLserver. xADP provides simple mechanisms for starting and stopping servers, 
 server communication via RPC, and a nsdb Tcl package that wraps the ns_db API 
 for ease of use.
