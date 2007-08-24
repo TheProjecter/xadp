@@ -12,9 +12,10 @@ proc printUsage {} {
 
 proc getFlagsAndDescriptions {} {
     lappend flagList -help {Print this message.}
-    lappend flagList -servertype {The type of server (default is 'generic').}
-    lappend flagList -httpport {port for incoming requests (default is '8080').}
-    lappend flagList -nscpport {port for the nscp module.}
+    lappend flagList -servertype 
+    lappend flagList {The type of server to start (default is 'generic').}
+    lappend flagList -httpport {The port to use (default is '8080').}
+    lappend flagList -nscpport {The port to use for the nscp module.}
     lappend flagList -user {Run the server as <user>.}
     lappend flagList -group {Run the server as <group>.}
     lappend flagList -foreground {Run the server in foreground mode.}
