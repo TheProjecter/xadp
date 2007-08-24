@@ -94,14 +94,14 @@ execute these files directly or use the their environment aliases.
 
 To start a 'generic' AOLserver on port '8080' in the foreground:
 
-    % ./startserver -foreground
+    % ./startserver -foreground -servertype generic -httpport 8080
 
 Default values for -servertype and -httpport are 'generic' and '8080' so you 
 did not need to specify those params. To stop the server, press ctl+c.
 
 Start the server again, this time in the background:
 
-    % ./startserver
+    % ./startserver -servertype generic -httpport 8080
     Server: generic
     Http port: 8080
     Nscp port: 
@@ -113,7 +113,7 @@ Start the server again, this time in the background:
 You can start another 'generic' server on a different port and specify
 a port for the server's nscp module:
 
-    % ./startserver -httpport 8081 -nscpport 8082
+    % ./startserver -servertype generic -httpport 8081 -nscpport 8082
     Server: generic
     Http port: 8081
     Nscp port: 8082
@@ -137,14 +137,14 @@ $XADP/logs:
 
 To stop the server running on port 8081:
 
-    % ./stopserver -httpport 8081
+    % ./stopserver -servertype generic -httpport 8081
     Stopping server "generic" on port 8081 (pid: 23108)...
     Shutdown pending...
     Shutdown complete.
 
 To stop the server running on port 8080:
 
-    % ./stopserver 
+    % ./stopserver -servertype generic -httpport 8080
     Stopping server "generic" on port 8080 (pid: 23192)...
     Shutdown pending...
     Shutdown complete.
