@@ -17,7 +17,9 @@ proc getFlagsAndDescriptions {} {
     lappend flagList -nscpport {port for the nscp module}
     lappend flagList -user {The user to run the server as}
     lappend flagList -group {The group to run the server as}
-    lappend flagList -backgound {Run in background mode}
+    lappend flagList -foreground {Run in foreground mode}
+    lappend flagList -address {The IP address to use (Defaul is [ns_info address])}
+    lappend flagList -hostname {The host name to use (Default is [ns_info hostname])}
     lappend flagList -version {Returns the nsd version info}
 
     return $flagList
@@ -107,6 +109,14 @@ if {![info exists nscpport]} {
     set nscpport ""
 }
 
+if {![info exists address]} {
+    set address ""
+}
+
+if {![info exists hostname]} {
+    set hostname ""
+}
+
 set os [exec uname]
 set arch [exec uname -m]
 set platform ${os}_${arch}
@@ -137,7 +147,8 @@ if {[info exists foreground]} {
 set cfgFile [file dirname [info script]]/../cfg/common.cfg
 set cfgFile [file normalize $cfgFile]
 
-lappend nsdcommand -t $cfgFile $servertype $httpport $nscpport $platformdir
+lappend nsdcommand -t $cfgFile $servertype $httpport $nscpport $hostname
+lappend nsdcommand $address $platformdir
 
 if {[info exists foreground]} {
     lappend nsdcommand >&@ stdout
