@@ -20,7 +20,7 @@ proc getFlagsAndDescriptions {} {
     lappend flagList -group {Run the server as this group.}
     lappend flagList -foreground {Run the server in foreground mode.}
     lappend flagList -address 
-    lappend flagList {The IP address to use (Default is [ns_info address]).}
+    lappend flagList {The IP address to use (Default is all IPs: 0.0.0.0).}
     lappend flagList -hostname 
     lappend flagList {The host name to use (Default is [ns_info hostname]).}
     lappend flagList -version {Return nsd version info.}
